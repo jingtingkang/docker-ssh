@@ -1,3 +1,3 @@
 # docker-ssh
-docker-ssh
-test for dockerfile
+Usage
+docker run -i -t --net=host --privileged -v /:/host tobegit3hub/dev /bin/bash
