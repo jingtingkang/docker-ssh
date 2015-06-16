@@ -1,25 +1,25 @@
 #Dockerfile
-FROM centos6-base
-#Ö¸¶¨centos6ÏµÍ³
-MAINTAINER zhou_mfk <zhou_mfk@163.com>
-#ÎÒ³­µÄËûµÄ Dockerfile
+FROM ubuntu
+#æŒ‡å®šcentos6ç³»ç»Ÿ
+MAINTAINER XXXXXX <XXXXXXXXX>
+#æˆ‘æŠ„çš„ä»–çš„ Dockerfile
 RUN ssh-keygen -q -N "" -t dsa -f /etc/ssh/ssh_host_dsa_key
 RUN ssh-keygen -q -N "" -t rsa -f /etc/ssh/ssh_host_rsa_key
-#´´½¨Ë½Ô¿
+#åˆ›å»ºç§é’¥
 RUN sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd
-#ĞŞ¸´SSHµÇÂ¼£¬·ñÔòµÇÂ½ºóµÄÓÃ»§»á±»ÃëÍË¡£
+#ä¿®å¤SSHç™»å½•ï¼Œå¦åˆ™ç™»é™†åçš„ç”¨æˆ·ä¼šè¢«ç§’é€€ã€‚
 RUN mkdir -p /root/.ssh && chown root.root /root && chmod 700 /root/.ssh
-#´´½¨rootÓÃ»§µÄsshÎÄ¼ş¼Ğ
+#åˆ›å»ºrootç”¨æˆ·çš„sshæ–‡ä»¶å¤¹
 EXPOSE 22
-#¿ª·Å¶Ë¿Ú
+#å¼€æ”¾ç«¯å£
 RUN echo 'root:redhat' | chpasswd
-#rootÓÃ»§¸ÄÃÜÂëÎªredhat
+#rootç”¨æˆ·æ”¹å¯†ç ä¸ºredhat
 RUN yum install -y yum-priorities && rpm -ivh http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm && rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-6
 RUN yum install tar gzip gcc vim wget screen -y
-#°²×°epelºÍ°²×°Ò»Ğ©Èí¼ş
+#å®‰è£…epelå’Œå®‰è£…ä¸€äº›è½¯ä»¶
 ENV LANG en_US.UTF-8
 ENV LC_ALL en_US.UTF-8
-#ÏµÍ³»·¾³±äÁ¿
+#ç³»ç»Ÿç¯å¢ƒå˜é‡
 CMD ["/usr/sbin/sshd", "-D"]
-#Æô¶¯sshd
+#å¯åŠ¨sshd
 #End
